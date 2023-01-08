@@ -52,6 +52,9 @@ jobs:
 
     steps:
 
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
     - name: Generate deployment package
       run: zip deploy.zip ./docker-compose.yml
 
