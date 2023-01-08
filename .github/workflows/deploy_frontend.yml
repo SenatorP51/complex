@@ -1,11 +1,11 @@
 
-name: Deploy multifib
+name: Deploy multifib on EBS AWS
 
 on:
   workflow_dispatch:
     
 jobs:
-  build-push-and-deploy :
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -46,6 +46,12 @@ jobs:
         push: true
         tags: ${{ matrix.image }}
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+
     - name: Generate deployment package
       run: zip deploy.zip ./docker-compose.yml
 
@@ -56,6 +62,6 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: multifib
         environment_name: Multifib-env
-        version_label: lab12_1
+        version_label: lab12
         region: us-east-1
         deployment_package: deploy.zip
