@@ -11,17 +11,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: Dockerfile
-            context: ./client
+          - dockerfile: ./Dockerfile
+            context: client
             image: spg51/lab:fib-client
-          - dockerfile: Dockerfile
-            context: ./server
+          - dockerfile: ./Dockerfile
+            context: server
             image: spg51/lab:fib-server
-          - dockerfile: Dockerfile
-            context: ./worker
+          - dockerfile: ./Dockerfile
+            context: worker
             image: spg51/lab:fib-worker
-          - dockerfile: Dockerfile
-            context: ./ngnix
+          - dockerfile: ./Dockerfile
+            context: ngnix
             image: spg51/lab:fib-router  
     
     steps:
@@ -47,7 +47,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
-        context: ${{ matrix.context }}
+        context: "{{defaultContext}}:${{ matrix.context }}"
         file: ${{ matrix.dockerfile }}
         push: true
         tags: ${{ matrix.image }}
