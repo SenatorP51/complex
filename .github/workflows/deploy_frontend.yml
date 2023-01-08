@@ -12,13 +12,13 @@ jobs:
       matrix:
         include:
           - dockerfile: ./client/Dockerfile
-            image: spg51/lab:fib-client
+            image: docker.io/spg51/lab:fib-client
           - dockerfile: ./server/Dockerfile
-            image: spg51/lab:fib-server
+            image: docker.io/spg51/lab:fib-server
           - dockerfile: ./worker/Dockerfile
-            image: spg51/lab:fib-worker
+            image: docker.io/spg51/lab:fib-worker
           - dockerfile: ./ngnix/Dockerfile
-            image: spg51/lab:fib-router  
+            image: docker.io/spg51/lab:fib-router  
     
     steps:
 
