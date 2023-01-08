@@ -11,16 +11,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: Dockerfile
+          - dockerfile: ./Dockerfile
             context: ./client
             image: spg51/lab:fib-client
-          - dockerfile: Dockerfile
+          - dockerfile: ./Dockerfile
             context: ./server
             image: spg51/lab:fib-server
-          - dockerfile: Dockerfile
+          - dockerfile: ./Dockerfile
             context: ./worker
             image: spg51/lab:fib-worker
-          - dockerfile: Dockerfile
+          - dockerfile: ./Dockerfile
             context: ./ngnix
             image: spg51/lab:fib-router  
     
