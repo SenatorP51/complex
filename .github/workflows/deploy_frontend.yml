@@ -21,7 +21,7 @@ jobs:
             context: worker
             image: spg51/lab:fib-worker
           - dockerfile: ./Dockerfile
-            context: ngnix
+            context: nginx
             image: spg51/lab:fib-router  
     
     steps:
