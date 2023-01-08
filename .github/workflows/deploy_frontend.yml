@@ -40,6 +40,9 @@ jobs:
       with:
         images: ${{ matrix.image }}
 
+    - name: Test 
+      run: echo ${{ steps.meta.output.tags }} 
+
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
