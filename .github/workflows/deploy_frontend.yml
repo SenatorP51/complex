@@ -12,13 +12,13 @@ jobs:
       matrix:
         include:
           - dockerfile: ./client/Dockerfile
-            image: docker.io/spg51/lab:fib-client
+            image: spg51/lab:fib-client
           - dockerfile: ./server/Dockerfile
-            image: docker.io/spg51/lab:fib-server
+            image: spg51/lab:fib-server
           - dockerfile: ./worker/Dockerfile
-            image: docker.io/spg51/lab:fib-worker
+            image: spg51/lab:fib-worker
           - dockerfile: ./ngnix/Dockerfile
-            image: docker.io/spg51/lab:fib-router  
+            image: spg51/lab:fib-router  
     
     steps:
 
@@ -34,14 +34,11 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@v4
-      with:
-        images: ${{ matrix.image }}
-
-    - name: Test 
-      run: echo ${{ steps.meta.output.tags }} 
+#    - name: Extract metadata (tags, labels) for Docker
+#      id: meta
+#      uses: docker/metadata-action@v4
+#      with:
+#        images: ${{ matrix.image }} 
 
     - name: Build and push
       uses: docker/build-push-action@v3
@@ -49,8 +46,8 @@ jobs:
         context: .
         file: ${{ matrix.dockerfile }}
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: ${{ matrix.image }}
+#        labels: ${{ steps.meta.outputs.labels }}
 
     - name: Generate deployment package
       run: zip deploy.zip ./docker-compose.yml
